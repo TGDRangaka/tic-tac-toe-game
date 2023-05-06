@@ -80,8 +80,17 @@ public class GameWindowFormController implements Initializable {
 
                 runGame(imageView);
                 if(winner != null) {
+                    Piece piece = winner.getPiece();
                     gridBoard.setDisable(true);
-                    new Alert(Alert.AlertType.CONFIRMATION, "Winner winner chicken dinner").show();
+
+                    if(piece == Piece.RED) {
+                        new Alert(Alert.AlertType.CONFIRMATION, "Winner winner chicken dinner").show();
+                    }else if(piece == Piece.BLUE){
+                        new Alert(Alert.AlertType.CONFIRMATION, "You Lose!!").show();
+                    }else if(piece == Piece.DRAW){
+                        new Alert(Alert.AlertType.CONFIRMATION, "! DRAW !").show();
+                    }
+
                 }
 
             });
@@ -89,11 +98,15 @@ public class GameWindowFormController implements Initializable {
     }
 
     private void runGame(ImageView imageView) {
+        if (!board.isBoardHaveEmpty()){
+            winner = new Winner(Piece.DRAW, 0,0,0,0);
+            return;
+        }
 
         int[] indexes = Service.getClickedCellIndex(imageViews, imageView);
         int column = indexes[0];
         int row = indexes[1];
-        System.out.println("Move RED - (" + column +"," + row + ")");
+//        System.out.println("Move RED - (" + column +"," + row + ")");
 
         boolean isValidMove = board.isValidMove(column, row);
 
@@ -112,16 +125,23 @@ public class GameWindowFormController implements Initializable {
         }
 
         //
-        Random r = new Random();
-        boolean validMove = false;
-        int col = 0;
-        int rw = 0;
-        while (!validMove){
-            col = r.nextInt(3);
-            rw = r.nextInt(3);
-            validMove = board.isValidMove(col, rw);
+        if (!board.isBoardHaveEmpty()){
+            winner = new Winner(Piece.DRAW, 0,0,0,0);
+            return;
         }
-        System.out.println("Move BLUE - (" + col +"," + rw + ")");
+
+        int[] predictColRow = board.predictCell();
+        int col = predictColRow[0];
+        int rw = predictColRow[1];
+
+//        Random r = new Random();
+//        boolean validMove = false;
+//        while (!validMove){
+//            col = r.nextInt(3);
+//            rw = r.nextInt(3);
+//            validMove = board.isValidMove(col, rw);
+//        }
+//        System.out.println("Move BLUE - (" + col +"," + rw + ")");
 
         board.makeMove(col, rw, Piece.BLUE);
         imageView = Service.getImageView(col, rw, imageViews);
@@ -141,5 +161,4 @@ public class GameWindowFormController implements Initializable {
         Node node = FXMLLoader.load(getClass().getResource("/view/main_window_form.fxml"));
         root.getChildren().setAll(node);
     }
-
 }
