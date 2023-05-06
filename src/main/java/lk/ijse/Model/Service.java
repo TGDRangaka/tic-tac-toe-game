@@ -7,19 +7,6 @@ import lk.ijse.dto.Winner;
 import java.util.List;
 
 public class Service {
-
-    public static boolean isBoardHaveEmpty(Piece[][] board) {
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++){
-                if(board[i][j].equals(Piece.EMPTY)){
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
     public static int[] getClickedCellIndex(List<ImageView> imageViews, ImageView imageView) {
         if(imageView == imageViews.get(0)){
             return new int[]{0,0};
@@ -43,41 +30,27 @@ public class Service {
         return null;
     }
 
-    public static boolean isValidMove(int column, int row, Piece[][] board) {
-        return board[column][row] == Piece.EMPTY;
-    }
-
-    public static boolean isHaveWinner(Piece[][] board) {
-        for (int i = 0; i < 3; i++){
-            Piece piece = board[i][0];
-            if(piece == Piece.EMPTY) continue;
-            if(piece == board[i][1] && piece == board[i][2]){
-                return true;
-            }
+    public static ImageView getImageView(int col, int rw, List<ImageView> imageViews) {
+        if(col == 0 && rw == 0){
+            return imageViews.get(0);
+        }else if(col == 0 && rw == 1){
+            return imageViews.get(1);
+        }else if(col == 0 && rw == 2){
+            return imageViews.get(2);
+        }else if(col == 1 && rw == 0){
+            return imageViews.get(3);
+        }else if(col == 1 && rw == 1){
+            return imageViews.get(4);
+        }else if(col == 1 && rw == 2){
+            return imageViews.get(5);
+        }else if(col == 2 && rw == 0){
+            return imageViews.get(6);
+        }else if(col == 2 && rw == 1){
+            return imageViews.get(7);
+        }else if(col == 2 && rw == 2){
+            return imageViews.get(8);
         }
 
-        for (int i = 0; i < 3; i++){
-            Piece piece = board[0][i];
-            if(piece == Piece.EMPTY) continue;
-            if(piece == board[1][i] && piece == board[2][i]){
-                return true;
-            }
-        }
-
-        Piece piece = board[1][1];
-
-        if(piece == Piece.EMPTY) return false;
-
-        if(piece == board[0][0] && piece == board[2][2]){
-            return true;
-        }else if(piece == board[2][0] && piece == board[0][2]){
-            return true;
-        }
-
-        return false;
-    }
-
-    public static Winner getWinner(Piece[][] board) {
         return null;
     }
 }
