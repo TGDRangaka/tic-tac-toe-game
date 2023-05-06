@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="667.0" prefWidth="1000.0" style="-fx-background-color: #2D2F33;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.Controller.MainWindowFormController">
+   <children>
+      <ImageView fitHeight="668.0" fitWidth="1181.0" layoutX="-181.0" layoutY="2.0" preserveRatio="true">
+         <image>
+            <Image url="@../img/tic-tac-toe_bg.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton focusTraversable="false" layoutX="398.0" layoutY="299.0" onAction="#btnPlayOnAction" prefHeight="69.0" prefWidth="204.0" style="-fx-background-color: black; -fx-border-color: white; -fx-border-radius: 15px; -fx-background-radius: 15px;" text="PLAY" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
